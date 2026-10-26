@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Interactive Website</title>
+
+  <!-- Підключення файлу зі стилями -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <header>
+      <h1>My Interactive Website</h1>
+      <button id="themeBtn">Змінити тему</button>
+    </header>
+
+    <section class="card">
+      <h2 id="greeting">Привіт, студенте!</h2>
+      <p>Введіть своє ім'я:</p>
+      <input id="nameInput" placeholder="Ваше ім'я">
+      <button id="helloBtn">Привітатися</button>
+    </section>
+
+    <section class="card">
+      <h2>Моя перша інтерактивна картка</h2>
+      <p>Подобається JavaScript?</p>
+      <button id="likeBtn">Подобається</button>
+      <p>Лайків: <span id="likes">0</span></p>
+    </section>
+  </div>
+
+  <!-- Підключення скрипта (в кінці body, щоб елементи сторінки вже були завантажені) -->
+  <script src="script.js"></script>
+
+</body>
+</html>
