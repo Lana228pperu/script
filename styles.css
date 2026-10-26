@@ -1,0 +1,842 @@
+/* ============ ЗАГАЛЬНІ НАЛАШТУВАННЯ ============ */
+
+/* Прибираємо стандартні відступи браузера */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Плавна прокрутка; відступ зверху, щоб шапка не закривала заголовки */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Основний шрифт і колір тексту */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #1c1c1c;
+  background: #ffffff;
+  line-height: 1.6;
+}
+
+/* Посилання без підкреслення */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Червона рамка при навігації клавіатурою (Tab) */
+a:focus-visible,
+label:focus-visible,
+button:focus-visible {
+  outline: 3px solid #e63946;
+  outline-offset: 3px;
+}
+
+/* Бічні відступи: контент не ширший за 1150px і по центру */
+header,
+section,
+footer {
+  padding-left: max(5%, calc((100% - 1150px) / 2));
+  padding-right: max(5%, calc((100% - 1150px) / 2));
+}
+
+/* Маленька червона мітка («Новинка», «Хіт», «Популярний») */
+mark {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #e63946;
+  color: #ffffff;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+
+/* ============ АНІМАЦІЇ ============ */
+
+/* Поява знизу вгору */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Плавне погойдування вгору-вниз */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-18px); }
+}
+
+/* Пульсація кнопки */
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.6); }
+  70%, 100% { box-shadow: 0 0 0 18px rgba(230, 57, 70, 0); }
+}
+
+
+/* ============ ШАПКА ============ */
+
+header {
+  position: sticky;          /* шапка залишається вгорі при прокрутці */
+  top: 0;
+  z-index: 100;
+  display: flex;             /* логотип зліва, меню справа */
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #eeeeee;
+}
+
+/* Логотип */
+header > a {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+header > a span {
+  color: #e63946;
+}
+
+/* Кнопка бургер-меню та галочка схована на великих екранах */
+#menu-toggle {
+  display: none;
+}
+
+header label {
+  display: none;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Меню */
+nav {
+  display: flex;
+  gap: 24px;
+}
+
+header nav a {
+  position: relative;
+  padding-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+/* Лінія під пунктом меню, яка з'являється при наведенні */
+header nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: #e63946;
+  transition: width 0.3s;
+}
+
+header nav a:hover {
+  color: #e63946;
+}
+
+header nav a:hover::after {
+  width: 100%;
+}
+
+
+/* ============ ЗАГАЛЬНИЙ СТИЛЬ РОЗДІЛІВ ============ */
+
+section {
+  padding-top: 90px;
+  padding-bottom: 90px;
+}
+
+/* Сірий фон для кожного другого розділу */
+#benefits,
+#sizes,
+#about {
+  background: #f5f5f7;
+}
+
+/* Заголовки розділів */
+section h2 {
+  font-size: 38px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* Підзаголовок — абзац одразу після заголовка h2 */
+section > h2 + p {
+  text-align: center;
+  color: #666666;
+  margin-bottom: 50px;
+}
+
+
+/* ============ ГОЛОВНИЙ ЕКРАН ============ */
+
+#home {
+  position: relative;
+  overflow: hidden;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(230, 57, 70, 0.55), transparent 45%),
+    linear-gradient(135deg, #0d0d0d 0%, #262626 100%);
+  color: #ffffff;
+}
+
+/* Розмитий кольоровий круг, що плаває */
+#home::after {
+  content: "";
+  position: absolute;
+  right: -120px;
+  bottom: -120px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e63946, #ff8a5c);
+  opacity: 0.35;
+  filter: blur(30px);
+  animation: float 7s ease-in-out infinite;
+}
+
+/* Весь вміст hero — над кругом і з анімацією появи */
+#home > * {
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 0.8s ease both;
+}
+
+#home > :nth-child(2) { animation-delay: 0.15s; }
+#home > :nth-child(3) { animation-delay: 0.3s; }
+#home > :nth-child(4) { animation-delay: 0.45s; }
+
+/* Маленький напис над заголовком */
+#home p:first-child {
+  padding: 6px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 30px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+
+#home h1 {
+  font-size: 64px;
+  line-height: 1.1;
+  max-width: 700px;
+  margin-bottom: 24px;
+}
+
+/* Слово із градієнтною заливкою */
+#home h1 span {
+  background: linear-gradient(90deg, #ff6b76, #ffb199);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+#home h1 + p {
+  font-size: 19px;
+  max-width: 520px;
+  margin-bottom: 36px;
+  color: #dddddd;
+}
+
+/* Дві кнопки в ряд */
+#home > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+#home > div a {
+  display: inline-block;
+  padding: 15px 36px;
+  background: #e63946;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 40px;
+  border: 2px solid #e63946;
+  transition: all 0.3s;
+}
+
+/* Головна кнопка пульсує */
+#home > div a:first-child {
+  animation: pulse 2.2s infinite;
+}
+
+#home > div a:hover {
+  background: #ffffff;
+  color: #e63946;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(230, 57, 70, 0.35);
+  animation: none;
+}
+
+/* Друга кнопка — прозора з рамкою */
+#home > div a:last-child {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+#home > div a:last-child:hover {
+  background: #ffffff;
+  color: #111111;
+}
+
+
+/* ============ КОЛЕКЦІЯ (картки товарів) ============ */
+
+/* Сітка: 4 картки в один ряд */
+#collection > div {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Картка підіймається при наведенні */
+article:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 18px 40px rgba(230, 57, 70, 0.22);
+}
+
+/* Блок із зображенням (емодзі на градієнті) */
+article figure {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+}
+
+/* Градієнт — окремий шар, що збільшується при наведенні */
+article figure::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transition: transform 0.5s;
+}
+
+article:hover figure::before {
+  transform: scale(1.12);
+}
+
+#collection article:nth-child(1) figure::before { background: linear-gradient(135deg, #434343, #000000); }
+#collection article:nth-child(2) figure::before { background: linear-gradient(135deg, #4b79a1, #283e51); }
+#collection article:nth-child(3) figure::before { background: linear-gradient(135deg, #f2f2f2, #bdbdbd); }
+#collection article:nth-child(4) figure::before { background: linear-gradient(135deg, #e63946, #7a1a22); }
+
+/* Мітка у куті картки */
+article mark {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-size: 12px;
+}
+
+/* Текст усередині картки */
+article div {
+  flex: 1;
+  padding: 20px;
+  background: #ffffff;
+}
+
+article h3 {
+  font-size: 19px;
+  margin-bottom: 6px;
+}
+
+article p {
+  font-size: 14px;
+  color: #666666;
+  margin-bottom: 14px;
+}
+
+/* Ціна */
+article strong {
+  display: block;
+  font-size: 20px;
+  color: #e63946;
+}
+
+/* Кнопка «Замовити» */
+article a {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 10px 24px;
+  border: 2px solid #e63946;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e63946;
+  transition: all 0.3s;
+}
+
+article a:hover {
+  background: #e63946;
+  color: #ffffff;
+}
+
+
+/* ============ ПЕРЕВАГИ ============ */
+
+#benefits > div {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+#benefits > div > div {
+  background: #ffffff;
+  padding: 32px 24px;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid #eeeeee;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+#benefits > div > div:hover {
+  transform: translateY(-6px);
+  border-color: #e63946;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Емодзі-іконка, що злегка погойдується */
+#benefits span {
+  display: block;
+  font-size: 40px;
+  margin-bottom: 14px;
+  animation: float 3s ease-in-out infinite;
+}
+
+#benefits h3 {
+  margin-bottom: 8px;
+}
+
+#benefits p {
+  font-size: 14px;
+  color: #666666;
+}
+
+
+/* ============ ГАЛЕРЕЯ ============ */
+
+#gallery > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+#gallery figure {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  height: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* Градієнтний фон плитки, що збільшується при наведенні */
+#gallery figure::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transition: transform 0.5s;
+}
+
+#gallery figure:hover::before {
+  transform: scale(1.15);
+}
+
+#gallery figure:nth-child(1)::before { background: linear-gradient(135deg, #434343, #000000); }
+#gallery figure:nth-child(2)::before { background: linear-gradient(135deg, #4b79a1, #283e51); }
+#gallery figure:nth-child(3)::before { background: linear-gradient(135deg, #bdbdbd, #757575); }
+#gallery figure:nth-child(4)::before { background: linear-gradient(135deg, #f7971e, #b8641a); }
+#gallery figure:nth-child(5)::before { background: linear-gradient(135deg, #e63946, #7a1a22); }
+#gallery figure:nth-child(6)::before { background: linear-gradient(135deg, #11998e, #0b5c55); }
+
+/* Підпис виїжджає знизу при наведенні */
+#gallery figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 14px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #ffffff;
+  font-size: 15px;
+  text-align: center;
+  transform: translateY(100%);
+  transition: transform 0.35s;
+}
+
+#gallery figure:hover figcaption {
+  transform: translateY(0);
+}
+
+
+/* ============ ТАБЛИЦЯ РОЗМІРІВ ============ */
+
+/* Обгортка: заокруглення, тінь і прокрутка на вузьких екранах */
+#sizes > div {
+  max-width: 800px;
+  margin: 0 auto;
+  overflow-x: auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  background: #ffffff;
+  text-align: center;
+}
+
+th {
+  padding: 16px;
+  background: #1c1c1c;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+td {
+  padding: 14px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+/* Перший стовпчик (розмір) виділено червоним */
+td:first-child {
+  font-weight: 700;
+  color: #e63946;
+}
+
+tbody tr {
+  transition: background 0.3s;
+}
+
+tbody tr:hover {
+  background: #fff0f1;
+}
+
+
+/* ============ БЛОК ЦІН ============ */
+
+#prices > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+#prices > div > div {
+  display: flex;
+  flex-direction: column;
+  padding: 36px 28px;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#prices > div > div:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Середня картка виділена */
+#prices > div > div:nth-child(2) {
+  border: 2px solid #e63946;
+  background: linear-gradient(180deg, #ffffff, #fff3f4);
+}
+
+#prices mark {
+  align-self: center;
+  margin-bottom: 10px;
+}
+
+#prices strong {
+  display: block;
+  margin-top: 14px;
+  font-size: 40px;
+  color: #e63946;
+}
+
+#prices span {
+  font-size: 14px;
+  color: #666666;
+}
+
+#prices ul {
+  flex: 1;
+  list-style: none;
+  margin: 22px 0 28px;
+  text-align: left;
+}
+
+#prices li {
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  color: #555555;
+}
+
+/* Галочка перед кожним пунктом */
+#prices li::before {
+  content: "✓ ";
+  font-weight: 700;
+  color: #e63946;
+}
+
+#prices a {
+  padding: 13px 30px;
+  background: #e63946;
+  color: #ffffff;
+  font-weight: 600;
+  border: 2px solid #e63946;
+  border-radius: 40px;
+  transition: all 0.3s;
+}
+
+#prices a:hover {
+  background: #ffffff;
+  color: #e63946;
+}
+
+
+/* ============ ПРО НАС ============ */
+
+/* Текст зліва, цифри справа */
+#about {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+#about > div {
+  flex: 1;
+}
+
+#about h2 {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+#about > div p {
+  color: #555555;
+  margin-bottom: 16px;
+}
+
+/* Кнопка «Зв'язатися з нами» */
+#about a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 15px 36px;
+  border: 2px solid #1c1c1c;
+  border-radius: 40px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+#about a:hover {
+  background: #1c1c1c;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Блок із цифрами */
+aside {
+  flex: 1;
+  display: grid;
+  gap: 18px;
+}
+
+aside p {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 28px;
+  background: #ffffff;
+  border-radius: 14px;
+  border-left: 5px solid #e63946;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s;
+}
+
+aside p:hover {
+  transform: translateX(8px);
+}
+
+aside strong {
+  font-size: 34px;
+  min-width: 110px;
+}
+
+aside span {
+  color: #666666;
+}
+
+
+/* ============ ВІДГУКИ ============ */
+
+#reviews > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+blockquote {
+  padding: 28px;
+  background: #f5f5f7;
+  border-top: 4px solid #e63946;
+  border-radius: 14px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+blockquote:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Зірочки */
+blockquote span {
+  color: #f5a623;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+blockquote p {
+  margin: 12px 0 16px;
+  color: #444444;
+  font-style: italic;
+}
+
+cite {
+  font-style: normal;
+  font-weight: 600;
+}
+
+
+/* ============ КОНТАКТИ ============ */
+
+#contacts {
+  background: #111111;
+  color: #ffffff;
+}
+
+#contacts > h2 + p {
+  color: #aaaaaa;
+}
+
+#contacts > div {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+#contacts > div > div {
+  padding: 28px 22px;
+  background: #1c1c1c;
+  border-radius: 14px;
+  transition: background 0.3s, transform 0.3s;
+}
+
+#contacts > div > div:hover {
+  background: #e63946;
+  transform: translateY(-5px);
+}
+
+#contacts h3 {
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+#contacts p {
+  color: #dddddd;
+  font-size: 15px;
+}
+
+/* Форма зворотного зв'язку */
+#contacts form {
+  display: grid;
+  gap: 16px;
+  max-width: 700px;
+  margin: 50px auto 0;
+  padding: 32px;
+  background: #1c1c1c;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+#contacts label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  color: #dddddd;
+}
+
+#contacts input,
+#contacts textarea {
+  padding: 14px 16px;
+  background: #111111;
+  color: #ffffff;
+  font: inherit;
+  border: 1px solid #333333;
+  border-radius: 10px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Підсвітка поля, коли в нього клікнули */
+#contacts input:focus,
+#contacts textarea:focus {
+  outline: none;
+  border-color: #e63946;
+  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.3);
+}
+
+#contacts button {
+  padding: 15px 36px;
+  background: #e63946;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  border: 2px solid #e63946;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#contacts button:hover {
